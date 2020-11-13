@@ -1,0 +1,10 @@
+{
+        "baseUrl": "https://api.appcenter.ms/v0.1/apps",
+        "ownerName": "Hilti-HNA",
+        "iosAppName": "DocuManager-iOS-Dev",
+        "iosToken": "6bcd32bc6d555e70735e7a0175e3f707b7fdb854",
+        "androidAppName": "DocuManager-Android-Dev",
+        "androidToken": "c9696b0016bd2deb2092bf59c9e380f4ddfa4cc5",
+        "esEndpointUrl" : "https://vpc-hilti-commonlog-commonlog-gje77eh7anr4f4yqt7tnoewyfy.eu-west-1.es.amazonaws.com"   
+}
+

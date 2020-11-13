@@ -1,0 +1,26 @@
+{
+  "name": "jira-api-poller",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node node_modules/jest/bin/jest.js --reporters=default --coverage",
+    "test-ci": "node node_modules/jest/bin/jest.js --reporters=default --reporters=jest-junit --coverage"
+  },
+  "author": "Hilti",
+  "license": "ISC",
+  "devDependencies": {
+    "aws-sdk": "^2.770.0",
+    "jest": "^24.9.0",
+    "jest-junit": "^10.0.0"
+  },
+  "jest-junit": {
+    "outputDirectory": "/reports/jira-api-poller",
+    "outputName": "report.xml"
+  },
+  "dependencies": {
+    "@elastic/elasticsearch": "^7.9.1",
+    "aws-elasticsearch-connector": "^9.0.0",
+    "node-fetch": "^2.6.1"
+  }
+}
