@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Creates full message card 1`] = `
+Object {
+  "@context": "http://schema.org/extensions",
+  "@type": "MessageCard",
+  "_postMessage": [Function],
+  "sections": Array [
+    Object {
+      "activitySubtitle": "local-test [hilti-managed-carina/notification/notification](https://eu-west-1.console.aws.amazon.com/cloudwatch/home?region=eu-west-1#logEventViewer:group=hilti-managed-carina%2Fnotification%2Fnotification;stream=main%2Fmain%2Fad279cc44a46421aa3fb9e5df18df4d5)",
+      "activityTitle": "hilti-managed-carina/notification/notification:This was an exception I guess",
+      "facts": Array [
+        Object {
+          "name": "id",
+          "value": "35507037370250737766392802662678519842492362686838933444",
+        },
+        Object {
+          "name": "timestamp",
+          "value": 1592190622069,
+        },
+      ],
+      "markdown": true,
+    },
+    Object {
+      "activitySubtitle": "local-test [hilti-managed-carina/notification/notification](https://eu-west-1.console.aws.amazon.com/cloudwatch/home?region=eu-west-1#logEventViewer:group=hilti-managed-carina%2Fnotification%2Fnotification;stream=main%2Fmain%2Fad279cc44a46421aa3fb9e5df18df4d5)",
+      "activityTitle": "hilti-managed-carina/notification/notification:And another Exception!",
+      "facts": Array [
+        Object {
+          "name": "id",
+          "value": "35507037370250737766392802662678519842492362686838933448",
+        },
+        Object {
+          "name": "timestamp",
+          "value": 1592190622069,
+        },
+      ],
+      "markdown": true,
+    },
+  ],
+  "summary": "One or more exceptions were detected in the notification service.",
+  "themeColor": "0076D7",
+  "title": "Exception in notification",
+}
+`;
+
+exports[`Ensures messages are distinct 1`] = `
+Object {
+  "@context": "http://schema.org/extensions",
+  "@type": "MessageCard",
+  "_postMessage": [Function],
+  "sections": Array [
+    Object {
+      "activitySubtitle": "local-test [hilti-managed-carina/notification/notification](https://eu-west-1.console.aws.amazon.com/cloudwatch/home?region=eu-west-1#logEventViewer:group=hilti-managed-carina%2Fnotification%2Fnotification;stream=main%2Fmain%2Fad279cc44a46421aa3fb9e5df18df4d5)",
+      "activityTitle": "hilti-managed-carina/notification/notification:This was an exception I guess",
+      "facts": Array [
+        Object {
+          "name": "id",
+          "value": "35507037370250737766392802662678519842492362686838933444",
+        },
+        Object {
+          "name": "timestamp",
+          "value": 1592190622069,
+        },
+      ],
+      "markdown": true,
+    },
+  ],
+  "summary": "One or more exceptions were detected in the notification service.",
+  "themeColor": "0076D7",
+  "title": "Exception in notification",
+}
+`;

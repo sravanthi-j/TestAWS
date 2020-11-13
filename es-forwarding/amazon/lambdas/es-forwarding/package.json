@@ -1,0 +1,20 @@
+{
+  "name": "es-forwarding",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node node_modules/jest/bin/jest.js --reporters=default --coverage",
+    "test-ci": "node node_modules/jest/bin/jest.js --reporters=default --reporters=jest-junit --coverage"
+  },
+  "author": "Hilti",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^24.8.0",
+    "jest-junit": "^10.0.0"
+  },
+  "jest-junit": {
+    "outputDirectory": "/reports/es-forwarding",
+    "outputName": "report.xml"
+  }
+}

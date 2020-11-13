@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Unzips the buffer and handles message: noncontrol 1`] = `
+Object {
+  "awsLogs": Array [],
+  "messageType": "",
+}
+`;
