@@ -1,0 +1,38 @@
+.env_variables_prod: &env_variables_prod
+  environment:
+    name: prod
+  variables:
+    MODULE_PREFIX: "hilti-"
+    CLUSTER: "arn:aws:ecs:eu-west-1:426888399662:cluster/hilti-main"
+    AWS_ID: "426888399662"
+    S3_BUCKET: "hilti-infra-prod"
+    S3_PREFIX: "shared-artifacts/"
+    STUB_ECR_REPO: "426888399662.dkr.ecr.eu-west-1.amazonaws.com/hilti-stub"
+  tags:
+  - aws
+  - type-docker
+  - environment-prod
+
+push:prod:
+  <<: *env_variables_prod
+  extends: .push_template
+  stage: push-prod
+  rules:
+    - if: $CI_PIPELINE_SOURCE != "merge_request_event" && $CI_COMMIT_REF_NAME =~ /^(hotfix\/.+|(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?|release\/rc-(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*))$/
+      when: on_success
+    - when: never
+
+#deploy:prod:auto:
+#  <<: *env_variables_prod
+#  only:
+#  - /^prod$/
+#  extends: .deploy_template
+
+deploy:prod:
+  <<: *env_variables_prod
+  extends: .deploy_template
+  stage: deploy-prod
+  rules:
+    - if: $CI_PIPELINE_SOURCE != "merge_request_event" && $CI_COMMIT_REF_NAME =~ /^(hotfix\/.+|(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?|release\/rc-(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*))$/
+      when: manual
+    - when: never

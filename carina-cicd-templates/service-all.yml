@@ -1,0 +1,6 @@
+include:
+    - local: service.yml
+    - local: service-dev-temp.yml
+    - local: service-stage.yml
+    - local: service-qa.yml
+    - local: service-prod.yml

@@ -1,0 +1,41 @@
+.env_variables_dev-temp: &env_variables_dev-temp
+  environment:
+    name: dev-temp
+  variables:
+    MODULE_PREFIX: "hilti-"
+    CLUSTER: "arn:aws:ecs:eu-west-1:904425940166:cluster/hilti-main"
+    AWS_ID: "904425940166"
+    S3_BUCKET: "hilti-infra-dev-temp"
+    S3_PREFIX: "shared-artifacts/"
+    STUB_ECR_REPO: "904425940166.dkr.ecr.eu-west-1.amazonaws.com/hilti-stub"
+  tags:
+  - aws
+  - type-docker
+  - environment-dev-temp
+
+push:dev-temp:
+  <<: *env_variables_dev-temp
+  extends: .push_template
+  stage: push-work
+  rules:
+    - if: $CI_PIPELINE_SOURCE != "merge_request_event" && $CI_COMMIT_REF_NAME =~ /^(dev|master|truth|develop|hotfix\/.+|bugfix\/.+|(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?|feature\/.+)$/
+      when: on_success
+    - when: never
+
+deploy:dev-temp:auto:
+  <<: *env_variables_dev-temp
+  stage: deploy-work
+  extends: .deploy_template
+  rules:
+    - if: $CI_PIPELINE_SOURCE != "merge_request_event" && $CI_COMMIT_REF_NAME =~ /^truth$/
+      when: on_success
+    - when: never
+
+deploy:dev-temp:
+  <<: *env_variables_dev-temp
+  extends: .deploy_template
+  stage: deploy-work
+  rules:
+    - if: $CI_PIPELINE_SOURCE != "merge_request_event" && $CI_COMMIT_REF_NAME =~ /^(dev|master|develop|hotfix\/.+|bugfix\/.+|(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?|feature\/.+)$/
+      when: manual
+    - when: never

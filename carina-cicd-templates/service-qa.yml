@@ -1,0 +1,38 @@
+.env_variables_qa: &env_variables_qa
+  environment:
+    name: qa
+  variables:
+    MODULE_PREFIX: "hilti-"
+    CLUSTER: "arn:aws:ecs:eu-west-1:245328029407:cluster/hilti-main"
+    AWS_ID: "245328029407"
+    S3_BUCKET: "hilti-infra-qa"
+    S3_PREFIX: "shared-artifacts/"
+    STUB_ECR_REPO: "245328029407.dkr.ecr.eu-west-1.amazonaws.com/hilti-stub"
+  tags:
+  - aws
+  - type-docker
+  - environment-qa
+
+push:qa:
+  <<: *env_variables_qa
+  extends: .push_template
+  stage: push-q
+  rules:
+    - if: $CI_PIPELINE_SOURCE != "merge_request_event" && $CI_COMMIT_REF_NAME =~ /^(dev|truth|master|develop|hotfix\/.+|bugfix\/.+|(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?|feature\/.+|release\/rc-(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*))$/
+      when: on_success
+    - when: never
+
+#deploy:qa:auto:
+#  <<: *env_variables_qa
+#  only:
+#  - /^qa$/
+#  extends: .deploy_template
+
+deploy:qa:
+  <<: *env_variables_qa
+  extends: .deploy_template
+  stage: deploy-q
+  rules:
+    - if: $CI_PIPELINE_SOURCE != "merge_request_event" && $CI_COMMIT_REF_NAME =~ /^(dev|truth|master|develop|hotfix\/.+|bugfix\/.+|(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?|feature\/.+|release\/rc-(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*))$/
+      when: manual
+    - when: never

@@ -1,0 +1,38 @@
+.env_variables_stage: &env_variables_stage
+  environment:
+    name: stage
+  variables:
+    MODULE_PREFIX: "hilti-"
+    CLUSTER: "arn:aws:ecs:eu-west-1:937572314560:cluster/hilti-main"
+    AWS_ID: "937572314560"
+    S3_BUCKET: "hilti-infra-stage"
+    S3_PREFIX: "shared-artifacts/"
+    STUB_ECR_REPO: "937572314560.dkr.ecr.eu-west-1.amazonaws.com/hilti-stub"
+  tags:
+  - aws
+  - type-docker
+  - environment-stage
+
+push:stage:
+  <<: *env_variables_stage
+  extends: .push_template
+  stage: push-stage
+  rules:
+    - if: $CI_PIPELINE_SOURCE != "merge_request_event" && $CI_COMMIT_REF_NAME =~ /^(hotfix\/.+|(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?|release\/rc-(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*))$/
+      when: on_success
+    - when: never
+
+#deploy:stage:auto:
+#  <<: *env_variables_stage
+#  only:
+#  - /^stage$/
+#  extends: .deploy_template
+
+deploy:stage:
+  <<: *env_variables_stage
+  extends: .deploy_template
+  stage: deploy-stage
+  rules:
+    - if: $CI_PIPELINE_SOURCE != "merge_request_event" && $CI_COMMIT_REF_NAME =~ /^(hotfix\/.+|(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?|release\/rc-(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*))$/
+      when: manual
+    - when: never
