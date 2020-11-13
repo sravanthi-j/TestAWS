@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`buildAuthorizationHeader hashes and signs the request information for the authorization header 1`] = `"AWS4-HMAC-SHA256 Credential=fakeKeyId/20191217/fakeRegion/fakeService/aws4_request, SignedHeaders=content-length;content-type;host;x-amz-security-token, Signature=15b69bcf46a707566a6462dbc33f98eb6169fca41ac463a56525348d451df260"`;
+
+exports[`buildRequest changes array of Activities into an elastic search request message 1`] = `
+Object {
+  "body": "{\\"index\\":{\\"_index\\":\\"fakeIndex\\",\\"_id\\":\\"123\\"}}
+{\\"@id\\":\\"123\\",\\"@timestamp\\":\\"2019-12-18T03:24:00.000Z\\",\\"@message\\":\\"Message 1\\"}
+{\\"index\\":{\\"_index\\":\\"fakeIndex\\",\\"_id\\":\\"123\\"}}
+{\\"@id\\":\\"123\\",\\"@timestamp\\":\\"2019-12-19T03:24:00.000Z\\",\\"@message\\":\\"Message 2\\"}
+",
+  "headers": Object {
+    "Content-Length": 244,
+    "Content-Type": "application/json",
+    "Host": "fake1.fakeRegion.fakeService.amazonaws.com",
+    "X-Amz-Date": "20191217T032400Z",
+    "X-Amz-Security-Token": "fakeToken",
+  },
+  "host": "fake1.fakeRegion.fakeService.amazonaws.com",
+  "method": "POST",
+  "path": "/_bulk",
+}
+`;
+
+exports[`process builds the request and adds the authorization header 1`] = `
+Object {
+  "body": "{\\"index\\":{\\"_index\\":\\"fakeIndex\\",\\"_id\\":\\"123\\"}}
+{\\"@id\\":\\"123\\",\\"@timestamp\\":\\"2019-12-18T03:24:00.000Z\\",\\"@message\\":\\"Message 1\\"}
+{\\"index\\":{\\"_index\\":\\"fakeIndex\\",\\"_id\\":\\"123\\"}}
+{\\"@id\\":\\"123\\",\\"@timestamp\\":\\"2019-12-19T03:24:00.000Z\\",\\"@message\\":\\"Message 2\\"}
+",
+  "headers": Object {
+    "Authorization": "AWS4-HMAC-SHA256 Credential=fakeKeyId/20191217/fakeRegion/fakeService/aws4_request, SignedHeaders=content-length;content-type;host;x-amz-date;x-amz-security-token, Signature=1e41c0e24787f4126fdb40a0e573a362c3ce8cba9fd83449bd8cf479f04db86d",
+    "Content-Length": 244,
+    "Content-Type": "application/json",
+    "Host": "fake1.fakeRegion.fakeService.amazonaws.com",
+    "X-Amz-Date": "20191217T032400Z",
+    "X-Amz-Security-Token": "fakeToken",
+  },
+  "host": "fake1.fakeRegion.fakeService.amazonaws.com",
+  "method": "POST",
+  "path": "/_bulk",
+}
+`;

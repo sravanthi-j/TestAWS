@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`When event is populated, can create ES message 1`] = `
+"{\\"index\\":{\\"_index\\":\\"MyIndex\\",\\"_id\\":\\"MyId\\"}}
+{\\"@id\\":\\"MyId\\",\\"@timestamp\\":\\"2019-12-17T03:24:00.000Z\\",\\"@message\\":{\\"id\\":\\"MyId\\",\\"timestamp\\":\\"2019-12-17T03:24:00.000Z\\",\\"foo\\":1}}
+"
+`;
